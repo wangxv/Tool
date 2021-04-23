@@ -1,0 +1,17 @@
+{
+  "name": "autocreatefolder",
+  "version": "1.0.0",
+  "description": "自动生成文件夹",
+  "main": "index.js",
+  "bin": {
+    "acfolder": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^7.2.0"
+  }
+}

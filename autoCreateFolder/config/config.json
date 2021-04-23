@@ -1,0 +1,13 @@
+{
+  "$1": {
+    "models": {
+      "index": "index.ts"
+    },
+    "utils": {
+      "dataConfig": "dataConfig.ts"
+    },
+    "applyRefund": "applyRefund.vue",
+    "index": "index.vue",
+    "$1Api": "$1Api.ts"
+  }
+}
