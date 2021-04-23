@@ -1,12 +1,15 @@
 {
   "$1": {
+    "components": {
+      "component": "component.vue"
+    },
     "models": {
       "index": "index.ts"
     },
     "utils": {
       "dataConfig": "dataConfig.ts"
     },
-    "applyRefund": "applyRefund.vue",
+    "common": "common.less",
     "index": "index.vue",
     "$1Api": "$1Api.ts"
   }
