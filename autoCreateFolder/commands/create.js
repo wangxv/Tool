@@ -33,8 +33,9 @@ const getConfig = (name, configPath) => {
 // 通过配置文件来生成文件夹 json对象
 module.exports = (options) => {
   const {fileName = 'test', config = 'config'} = options;
-  const configPath = path.join(process.cwd(), `config/${config}.json`);
+  const configPath = path.join(__dirname, `../config/${config}.json`);
   const filePath = path.join(process.cwd(), fileName);
+  console.log('%c 🦀 filePath: ', 'font-size:20px;background-color: #FFDD4D;color:#fff;', filePath);
 
   if (!fs.existsSync(configPath)) {
     console.log('配置文件不存在，请先创建配置文件！');
