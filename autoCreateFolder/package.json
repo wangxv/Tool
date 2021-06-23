@@ -4,7 +4,7 @@
   "description": "自动生成文件夹",
   "main": "index.js",
   "bin": {
-    "createf": "index.js"
+    "autof": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
