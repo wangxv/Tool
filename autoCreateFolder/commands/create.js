@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 // 遍历配置文件创建文件夹和文件
-const formatFile = (fileName, config, filePath) => {
+const formatFile = (fileName, config, filePath, configName) => {
   if (!config || Object.keys(config).length < 1) return;
 
   for (const key in config) {
@@ -10,21 +10,31 @@ const formatFile = (fileName, config, filePath) => {
       const tempPath = path.join(filePath, key.replace('$1', fileName));
 
       fs.mkdirSync(tempPath);
-      formatFile(fileName, config[key], tempPath);
+      formatFile(fileName, config[key], tempPath, configName);
     } else {
-      const tempPath = path.join(filePath, config[key].replace('$1', fileName));
+      let arr = config[key].split(' ');
+      let name = arr[0];
+      let template = arr.length > 1 ? arr[1] : '';
+      const tempPath = path.join(filePath, name.replace('$1', fileName));
+      if (template) {
+        const templatePath = path.join(__dirname, `../config/${configName}/${template}.txt`);
+        var content = fs.readFileSync(templatePath, 'utf-8');
+        fs.writeFileSync(tempPath, content);
+        return;
+      }
 
       fs.writeFileSync(tempPath, '');
     }
   }
 }
 
-const getConfig = (name, configPath) => {
+const getConfig = (name, configPath, configName) => {
+  console.log('%c 🍮 configName: ', 'font-size:20px;background-color: #93C0A4;color:#fff;', configName);
   // 获取命令执行的路径
   try {
     const str = fs.readFileSync(configPath, "utf-8");
     const config = JSON.parse(str);
-    formatFile(name, config, process.cwd());
+    formatFile(name, config, process.cwd(), configName);
   } catch (e) {
     console.log('读取文件失败!');
   }
@@ -35,7 +45,6 @@ module.exports = (options) => {
   const {fileName = 'test', config = 'config'} = options;
   const configPath = path.join(__dirname, `../config/${config}.json`);
   const filePath = path.join(process.cwd(), fileName);
-  console.log('%c 🦀 filePath: ', 'font-size:20px;background-color: #FFDD4D;color:#fff;', filePath);
 
   if (!fs.existsSync(configPath)) {
     console.log('配置文件不存在，请先创建配置文件！');
@@ -47,5 +56,5 @@ module.exports = (options) => {
     return;
   }
 
-  getConfig(fileName, configPath);
+  getConfig(fileName, configPath, config);
 };
